@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 class Tests extends Setup{
     RegisterAndLoginPage registerAndLoginPage = new RegisterAndLoginPage();
+    ShopPage shopPage = new ShopPage();
 
     @Test
     void registerUserTest(){
