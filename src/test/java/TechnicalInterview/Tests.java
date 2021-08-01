@@ -2,13 +2,31 @@ package TechnicalInterview;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.TimeUnit;
-
 class Tests extends Setup{
-    RegisterPage registerPage = new RegisterPage();
+    RegisterAndLoginPage registerAndLoginPage = new RegisterAndLoginPage();
 
     @Test
-    void registerUser(){
-        registerPage.registerUser(user);
+    void registerUserTest(){
+        registerAndLoginPage.registerUser(user);
+    }
+
+    @Test
+    void registerUserWithoutMailTest(){
+        registerAndLoginPage.registerWithoutMail();
+    }
+
+    @Test
+    void registerUserWithoutPasswordTest(){
+        registerAndLoginPage.registerWithoutPassword(user);
+    }
+
+    @Test
+    void loginTest(){
+        registerAndLoginPage.loginUser();
+    }
+
+    @Test
+    void logoutTest(){
+        registerAndLoginPage.logoutUser();
     }
 }
