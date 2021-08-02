@@ -1,24 +1,29 @@
-package TechnicalInterview;
+package TechnicalInterviewTestsPackage;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class Tests extends Setup{
-    RegisterAndLoginPage registerAndLoginPage = new RegisterAndLoginPage();
-    ShopPage shopPage = new ShopPage();
+class Tests extends TestSetup {
 
     public void errorMessageAssertion(String errorMessage){
         Assertions.assertTrue((driver.findElement(registerAndLoginPage.errorMessagePrompt)
                 .getText()).contains(errorMessage));
+    }
+    //TODO ADD ASSERTJ, eliminate exposed driver from tests, WebElements
+    public void loginMessageAssertion(String message){
+        int index = user.emailAddress.indexOf("@");
+        Assertions.assertTrue((driver.findElement(registerAndLoginPage.myAccountWelcomeMessage)
+                .getText()).contains(message.substring(0,index)));
     }
 
     @Test
     void registerUserTest(){
         registerAndLoginPage.registerUser(user);
 
-        int index = user.emailAddress.indexOf("@");
-        Assertions.assertTrue((driver.findElement(registerAndLoginPage.myAccountWelcomeMessage)
-                .getText()).contains(user.emailAddress.substring(0,index)));
+//        int index = user.emailAddress.indexOf("@");
+//        Assertions.assertTrue((driver.findElement(registerAndLoginPage.myAccountWelcomeMessage)
+//                .getText()).contains(user.emailAddress.substring(0,index)));
+        loginMessageAssertion(user.emailAddress);
     }
 
     @Test

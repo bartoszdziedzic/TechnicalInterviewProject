@@ -1,11 +1,13 @@
-package TechnicalInterview;
+package TechnicalInterviewTestsPackage;
 
+import TechnicalInterviewPagePackage.LandingPage;
+import TechnicalInterviewPagePackage.RegisterAndLoginPage;
+import TechnicalInterviewPagePackage.ShopPage;
+import TechnicalInterviewPagePackage.User;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,10 +15,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class Setup {
+public abstract class TestSetup {
 
-    protected static WebDriver driver;
-    protected static WebDriverWait wait;
+    protected ShopPage shopPage;
+    protected LandingPage landingPage;
+    protected RegisterAndLoginPage registerAndLoginPage;
+
+    protected WebDriver driver;
+    protected WebDriverWait wait;
     protected static final Faker fake = new Faker(new Locale("en", "US"));
     protected User user;
 
@@ -27,11 +33,14 @@ public class Setup {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 5);
 
+        landingPage = new LandingPage(driver);
+        shopPage = new ShopPage(driver);
+        registerAndLoginPage = new RegisterAndLoginPage(driver);
+
         driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-
-        driver.get("https://fakestore.testelka.pl/shop/");
-        driver.findElement(By.cssSelector("a[class*='dismiss-link']")).click();
+        landingPage.openUpNigga();
+        landingPage.dismissCookies();
 
         user = new User(fake.internet().emailAddress(),fake.internet().password(10,12));
     }

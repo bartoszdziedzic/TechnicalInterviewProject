@@ -1,4 +1,4 @@
-package TechnicalInterview;
+package TechnicalInterviewPagePackage;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class User {
-    String emailAddress;
-    String password;
+    public String emailAddress;
+    public String password;
 }

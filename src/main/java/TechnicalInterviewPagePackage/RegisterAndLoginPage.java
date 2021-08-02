@@ -1,22 +1,26 @@
-package TechnicalInterview;
+package TechnicalInterviewPagePackage;
 
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
-public class RegisterAndLoginPage extends Setup{
+public class RegisterAndLoginPage extends BasePage {
 
-    String registeredUser = "brynn.okuneva@gmail.com";
-    String registeredUserPassword = "dbj7x7sncq";
+    public String registeredUser = "brynn.okuneva@gmail.com";
+    public String registeredUserPassword = "dbj7x7sncq";
 
-    By emailRegisterField = By.cssSelector("#reg_email");
-    By passwordRegisterField = By.cssSelector("#reg_password");
-    By submitRegistrationButton = By.cssSelector("[name='register']");
-    By submitLoginButton = By.cssSelector("[name='login']");
-    By logoutButton = By.cssSelector("[class*='logout']");
-    By emailLoginField = By.cssSelector("#username");
-    By passwordLoginField = By.cssSelector("#password");
-    By errorMessagePrompt = By.cssSelector(".woocommerce-error");
-    By myAccountWelcomeMessage = By.cssSelector(".woocommerce-MyAccount-content");
+    public By emailRegisterField = By.cssSelector("#reg_email");
+    public By passwordRegisterField = By.cssSelector("#reg_password");
+    public By submitRegistrationButton = By.cssSelector("[name='register']");
+    public By submitLoginButton = By.cssSelector("[name='login']");
+    public By logoutButton = By.cssSelector("[class*='logout']");
+    public By emailLoginField = By.cssSelector("#username");
+    public By passwordLoginField = By.cssSelector("#password");
+    public By errorMessagePrompt = By.cssSelector(".woocommerce-error");
+    public By myAccountWelcomeMessage = By.cssSelector(".woocommerce-MyAccount-content");
+
+    public RegisterAndLoginPage(WebDriver driver) {
+        super(driver);
+    }
 
     public void registerUser(User user){
         getMyAccountPage();
@@ -42,11 +46,6 @@ public class RegisterAndLoginPage extends Setup{
 
     public void logoutUser(){
         loginMethod();
-//        Assertions.assertTrue((driver.findElement(myAccountWelcomeMessage)
-//                .getText()).contains("Delete Account"));
-//
-//        driver.findElement(logoutButton).click();
-//        Assertions.assertTrue(driver.findElement(submitLoginButton).isDisplayed());
     }
 
     public void getMyAccountPage(){
