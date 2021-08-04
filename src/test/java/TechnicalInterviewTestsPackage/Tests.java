@@ -3,6 +3,8 @@ package TechnicalInterviewTestsPackage;
 import TechnicalInterviewPagePackage.RegisterAndLoginPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
+import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class Tests extends TestSetup {
@@ -50,8 +52,8 @@ class Tests extends TestSetup {
     }
 
     public void loginMessageAssertion(String message){
-        int index = user.getEmailAddress().indexOf("@");
+        String username = List.of(message.split("@")).get(0);
         assertThat(registerAndLoginPage.accountWelcomeMessageIsDisplayed()
-                .getText()).contains(message.substring(0,index));
+                .getText()).contains(username);
     }
 }
