@@ -1,22 +1,32 @@
 package TechnicalInterviewPagePackage;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class RegisterAndLoginPage extends BasePage {
 
-    public String registeredUser = "brynn.okuneva@gmail.com";
-    public String registeredUserPassword = "dbj7x7sncq";
+    public static final String REGISTERED_USER = "brynn.okuneva@gmail.com";
+    public static final String REGISTERED_USER_PASSWORD = "dbj7x7sncq";
 
-    public By emailRegisterField = By.cssSelector("#reg_email");
-    public By passwordRegisterField = By.cssSelector("#reg_password");
-    public By submitRegistrationButton = By.cssSelector("[name='register']");
-    public By submitLoginButton = By.cssSelector("[name='login']");
-    public By logoutButton = By.cssSelector("[class*='logout']");
-    public By emailLoginField = By.cssSelector("#username");
-    public By passwordLoginField = By.cssSelector("#password");
-    public By errorMessagePrompt = By.cssSelector(".woocommerce-error");
-    public By myAccountWelcomeMessage = By.cssSelector(".woocommerce-MyAccount-content");
+    @FindBy(css = "#reg_email")
+    private WebElement emailRegisterField;
+    @FindBy(css = "#reg_password")
+    private WebElement passwordRegisterField;
+    @FindBy(css = "[name='register']")
+    private WebElement submitRegistrationButton;
+    @FindBy(css = "[name='login']")
+    private WebElement submitLoginButton;
+    @FindBy(css = "[class*='logout']")
+    private WebElement logoutButton;
+    @FindBy(css = "#username")
+    private WebElement emailLoginField;
+    @FindBy(css = "#password")
+    private WebElement passwordLoginField;
+    @FindBy(css = ".woocommerce-error")
+    private WebElement errorMessagePrompt;
+    @FindBy(css = ".woocommerce-MyAccount-content")
+    private WebElement myAccountWelcomeMessage;
 
     public RegisterAndLoginPage(WebDriver driver) {
         super(driver);
@@ -24,8 +34,8 @@ public class RegisterAndLoginPage extends BasePage {
 
     public void registerUser(User user){
         getMyAccountPage();
-        driver.findElement(emailRegisterField).sendKeys(user.emailAddress);
-        driver.findElement(passwordRegisterField).sendKeys(user.password);
+        emailRegisterField.sendKeys(user.emailAddress);
+        passwordRegisterField.sendKeys(user.getPassword());
         submitRegistration();
     }
 
@@ -36,7 +46,7 @@ public class RegisterAndLoginPage extends BasePage {
 
     public void registerWithoutPassword(User user){
         getMyAccountPage();
-        driver.findElement(emailRegisterField).sendKeys(user.emailAddress);
+        emailRegisterField.sendKeys(user.emailAddress);
         submitRegistration();
     }
 
@@ -53,17 +63,33 @@ public class RegisterAndLoginPage extends BasePage {
     }
 
     public void submitRegistration(){
-        driver.findElement(submitRegistrationButton).click();
+        submitRegistrationButton.click();
     }
 
     public void submitLogin(){
-        driver.findElement(submitLoginButton).click();
+        submitLoginButton.click();
+    }
+
+    public void submitLogout(){
+        logoutButton.click();
     }
 
     public void loginMethod(){
         getMyAccountPage();
-        driver.findElement(emailLoginField).sendKeys(registeredUser);
-        driver.findElement(passwordLoginField).sendKeys(registeredUserPassword);
+        emailLoginField.sendKeys(REGISTERED_USER);
+        passwordLoginField.sendKeys(REGISTERED_USER_PASSWORD);
         submitLogin();
+    }
+
+    public boolean isUserLoggedOut(){
+       return submitLoginButton.isDisplayed();
+    }
+
+    public WebElement errorMessagePromptDisplayed(){
+        return errorMessagePrompt;
+    }
+
+    public WebElement accountWelcomeMessageIsDisplayed(){
+        return myAccountWelcomeMessage;
     }
 }

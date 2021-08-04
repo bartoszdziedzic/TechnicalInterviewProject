@@ -39,7 +39,7 @@ public abstract class TestSetup {
 
         driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        landingPage.openUpNigga();
+        landingPage.openUpMainPage();
         landingPage.dismissCookies();
 
         user = new User(fake.internet().emailAddress(),fake.internet().password(10,12));

@@ -20,8 +20,8 @@ public class LandingPage extends BasePage {
         dismiss.click();
     }
 
-    public void openUpNigga(){
+    public void openUpMainPage(){
         driver.get(URL);
-      log.info("Meow Meow NIGGA!!!");
+      log.info("Meow Meow !!!");
     }
 }

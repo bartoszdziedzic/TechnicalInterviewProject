@@ -2,10 +2,12 @@ package TechnicalInterviewPagePackage;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 @AllArgsConstructor
+@Getter
 public class User {
-    public String emailAddress;
-    public String password;
+    String emailAddress;
+    String password;
 }

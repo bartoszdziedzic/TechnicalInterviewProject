@@ -1,29 +1,31 @@
 package TechnicalInterviewTestsPackage;
 
+import TechnicalInterviewPagePackage.RegisterAndLoginPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class Tests extends TestSetup {
 
     public void errorMessageAssertion(String errorMessage){
-        Assertions.assertTrue((driver.findElement(registerAndLoginPage.errorMessagePrompt)
-                .getText()).contains(errorMessage));
+        Assertions.assertTrue(registerAndLoginPage.errorMessagePromptDisplayed()
+                .getText().contains(errorMessage));
     }
+
     //TODO ADD ASSERTJ, eliminate exposed driver from tests, WebElements
     public void loginMessageAssertion(String message){
-        int index = user.emailAddress.indexOf("@");
-        Assertions.assertTrue((driver.findElement(registerAndLoginPage.myAccountWelcomeMessage)
-                .getText()).contains(message.substring(0,index)));
+        int index = user.getEmailAddress().indexOf("@");
+        Assertions.assertTrue(registerAndLoginPage.accountWelcomeMessageIsDisplayed()
+                .getText().contains(message.substring(0,index)));
     }
 
     @Test
     void registerUserTest(){
         registerAndLoginPage.registerUser(user);
 
-//        int index = user.emailAddress.indexOf("@");
-//        Assertions.assertTrue((driver.findElement(registerAndLoginPage.myAccountWelcomeMessage)
-//                .getText()).contains(user.emailAddress.substring(0,index)));
-        loginMessageAssertion(user.emailAddress);
+        int index = user.getEmailAddress().indexOf("@");
+        Assertions.assertTrue(registerAndLoginPage.accountWelcomeMessageIsDisplayed()
+                .getText().contains(user.getEmailAddress().substring(0,index)));
+        loginMessageAssertion(user.getEmailAddress());
     }
 
     @Test
@@ -41,19 +43,19 @@ class Tests extends TestSetup {
     @Test
     void loginTest(){
         registerAndLoginPage.loginUser();
-        int index = registerAndLoginPage.registeredUser.indexOf("@");
-        Assertions.assertTrue((driver.findElement(registerAndLoginPage.myAccountWelcomeMessage)
-                .getText()).contains(registerAndLoginPage.registeredUser.substring(0,index)));
+        int index = RegisterAndLoginPage.REGISTERED_USER.indexOf("@");
+        Assertions.assertTrue(registerAndLoginPage.accountWelcomeMessageIsDisplayed()
+                .getText().contains(RegisterAndLoginPage.REGISTERED_USER.substring(0,index)));
     }
 
     @Test
     void logoutTest(){
         registerAndLoginPage.logoutUser();
 
-        Assertions.assertTrue((driver.findElement(registerAndLoginPage.myAccountWelcomeMessage)
-                .getText()).contains("Delete Account"));
+        Assertions.assertTrue(registerAndLoginPage.accountWelcomeMessageIsDisplayed()
+                .getText().contains("Delete Account"));
 
-        driver.findElement(registerAndLoginPage.logoutButton).click();
-        Assertions.assertTrue(driver.findElement(registerAndLoginPage.submitLoginButton).isDisplayed());
+        registerAndLoginPage.submitLogout();
+        Assertions.assertTrue(registerAndLoginPage.isUserLoggedOut());
     }
 }
