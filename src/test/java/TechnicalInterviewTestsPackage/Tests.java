@@ -3,28 +3,13 @@ package TechnicalInterviewTestsPackage;
 import TechnicalInterviewPagePackage.RegisterAndLoginPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class Tests extends TestSetup {
-
-    public void errorMessageAssertion(String errorMessage){
-        Assertions.assertTrue(registerAndLoginPage.errorMessagePromptDisplayed()
-                .getText().contains(errorMessage));
-    }
-
-    //TODO ADD ASSERTJ
-    public void loginMessageAssertion(String message){
-        int index = user.getEmailAddress().indexOf("@");
-        Assertions.assertTrue(registerAndLoginPage.accountWelcomeMessageIsDisplayed()
-                .getText().contains(message.substring(0,index)));
-    }
 
     @Test
     void registerUserTest(){
         registerAndLoginPage.registerUser(user);
-
-        int index = user.getEmailAddress().indexOf("@");
-        Assertions.assertTrue(registerAndLoginPage.accountWelcomeMessageIsDisplayed()
-                .getText().contains(user.getEmailAddress().substring(0,index)));
         loginMessageAssertion(user.getEmailAddress());
     }
 
@@ -57,5 +42,16 @@ class Tests extends TestSetup {
 
         registerAndLoginPage.submitLogout();
         Assertions.assertTrue(registerAndLoginPage.isUserLoggedOut());
+    }
+
+    public void errorMessageAssertion(String errorMessage){
+        Assertions.assertTrue(registerAndLoginPage.errorMessagePromptDisplayed()
+                .getText().contains(errorMessage));
+    }
+
+    public void loginMessageAssertion(String message){
+        int index = user.getEmailAddress().indexOf("@");
+        assertThat(registerAndLoginPage.accountWelcomeMessageIsDisplayed()
+                .getText()).contains(message.substring(0,index));
     }
 }
