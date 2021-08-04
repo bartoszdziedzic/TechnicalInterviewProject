@@ -11,7 +11,7 @@ class Tests extends TestSetup {
                 .getText().contains(errorMessage));
     }
 
-    //TODO ADD ASSERTJ, eliminate exposed driver from tests, WebElements
+    //TODO ADD ASSERTJ
     public void loginMessageAssertion(String message){
         int index = user.getEmailAddress().indexOf("@");
         Assertions.assertTrue(registerAndLoginPage.accountWelcomeMessageIsDisplayed()

@@ -1,14 +1,19 @@
 package TechnicalInterviewPagePackage;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class ShopPage extends BasePage {
 
-    By windsurfingCategory = By.cssSelector("li.cat-item.cat-item-18 > a");
-    By climbingCategory = By.cssSelector("li.cat-item.cat-item-16 > a");
-    By yogaCategory = By.cssSelector("li.cat-item.cat-item-19 > a");
-    By sailingCategory = By.cssSelector("li.cat-item.cat-item-17 > a");
+    @FindBy(css = "li.cat-item.cat-item-18 > a")
+    private WebElement windsurfingCategory;
+    @FindBy(css = "li.cat-item.cat-item-16 > a")
+    private WebElement climbingCategory;
+    @FindBy(css = "li.cat-item.cat-item-19 > a")
+    private WebElement yogaCategory;
+    @FindBy(css = "li.cat-item.cat-item-17 > a")
+    private WebElement sailingCategory;
 
     public ShopPage(WebDriver driver) {
         super(driver);
