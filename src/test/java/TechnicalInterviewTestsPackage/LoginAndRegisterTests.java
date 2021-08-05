@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class Tests extends TestSetup {
+class LoginAndRegisterTests extends TestSetup {
 
     @Test
     void registerUserTest(){
