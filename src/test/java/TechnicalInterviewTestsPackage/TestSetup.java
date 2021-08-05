@@ -1,8 +1,9 @@
 package TechnicalInterviewTestsPackage;
 
+import TechnicalInterviewPagePackage.CartPage;
 import TechnicalInterviewPagePackage.LandingPage;
 import TechnicalInterviewPagePackage.RegisterAndLoginPage;
-import TechnicalInterviewPagePackage.ShopPage;
+import TechnicalInterviewPagePackage.ProductsPage;
 import TechnicalInterviewPagePackage.User;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
@@ -17,9 +18,10 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class TestSetup {
 
-    protected ShopPage shopPage;
+    protected ProductsPage productsPage;
     protected LandingPage landingPage;
     protected RegisterAndLoginPage registerAndLoginPage;
+    protected CartPage cartPage;
 
     protected WebDriver driver;
     protected WebDriverWait wait;
@@ -34,8 +36,9 @@ public abstract class TestSetup {
         wait = new WebDriverWait(driver, 5);
 
         landingPage = new LandingPage(driver);
-        shopPage = new ShopPage(driver);
+        productsPage = new ProductsPage(driver);
         registerAndLoginPage = new RegisterAndLoginPage(driver);
+        cartPage = new CartPage(driver);
 
         driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
