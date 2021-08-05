@@ -30,13 +30,7 @@ class Tests extends TestSetup {
     @Test
     void loginTest(){
         registerAndLoginPage.loginUser();
-//        int index = RegisterAndLoginPage.REGISTERED_USER.indexOf("@");
-//        Assertions.assertTrue(registerAndLoginPage.accountWelcomeMessageIsDisplayed()
-//                .getText().contains(RegisterAndLoginPage.REGISTERED_USER.substring(0,index)));
-        String username = List.of(RegisterAndLoginPage.REGISTERED_USER.split("@")).get(0);
-        assertThat(registerAndLoginPage.accountWelcomeMessageIsDisplayed().getText())
-                .as("Incorrect username displayed in welcome message.")
-                .contains(username);
+        loginMessageAssertion(RegisterAndLoginPage.REGISTERED_USER);
     }
 
     @Test
