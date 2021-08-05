@@ -30,30 +30,38 @@ class Tests extends TestSetup {
     @Test
     void loginTest(){
         registerAndLoginPage.loginUser();
-        int index = RegisterAndLoginPage.REGISTERED_USER.indexOf("@");
-        Assertions.assertTrue(registerAndLoginPage.accountWelcomeMessageIsDisplayed()
-                .getText().contains(RegisterAndLoginPage.REGISTERED_USER.substring(0,index)));
+//        int index = RegisterAndLoginPage.REGISTERED_USER.indexOf("@");
+//        Assertions.assertTrue(registerAndLoginPage.accountWelcomeMessageIsDisplayed()
+//                .getText().contains(RegisterAndLoginPage.REGISTERED_USER.substring(0,index)));
+        String username = List.of(RegisterAndLoginPage.REGISTERED_USER.split("@")).get(0);
+        assertThat(registerAndLoginPage.accountWelcomeMessageIsDisplayed().getText())
+                .as("Incorrect username displayed in welcome message.")
+                .contains(username);
     }
 
     @Test
     void logoutTest(){
         registerAndLoginPage.logoutUser();
-
-        Assertions.assertTrue(registerAndLoginPage.accountWelcomeMessageIsDisplayed()
-                .getText().contains("Delete Account"));
+        assertThat(registerAndLoginPage.accountWelcomeMessageIsDisplayed().getText())
+                .as("Welcome messsage does not contain 'Delete Account' phrase.")
+                .contains("Delete Account");
 
         registerAndLoginPage.submitLogout();
-        Assertions.assertTrue(registerAndLoginPage.isUserLoggedOut());
+        assertThat(registerAndLoginPage.isUserLoggedOut())
+                .as("Login button is not displayed.")
+                .isTrue();
     }
 
     public void errorMessageAssertion(String errorMessage){
-        Assertions.assertTrue(registerAndLoginPage.errorMessagePromptDisplayed()
-                .getText().contains(errorMessage));
+        assertThat(registerAndLoginPage.errorMessagePromptDisplayed().getText())
+                .as("Incorrect error message.")
+                .contains(errorMessage);
     }
 
     public void loginMessageAssertion(String message){
         String username = List.of(message.split("@")).get(0);
-        assertThat(registerAndLoginPage.accountWelcomeMessageIsDisplayed()
-                .getText()).contains(username);
+        assertThat(registerAndLoginPage.accountWelcomeMessageIsDisplayed().getText())
+                .as("Incorrect username displayed in welcome message.")
+                .contains(username);
     }
 }
