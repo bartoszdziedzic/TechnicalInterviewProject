@@ -8,6 +8,10 @@ public class CartPage extends BasePage {
 
     @FindBy(css = ".woocommerce-cart-form")
     private WebElement cartElements;
+    @FindBy(css = ".woocommerce-message")
+    private WebElement cartMessage;
+    @FindBy(css = ".cart-empty.woocommerce-info")
+    private WebElement emptyCartMessage;
 
     public CartPage(WebDriver driver) {
         super(driver);
@@ -15,5 +19,17 @@ public class CartPage extends BasePage {
 
     public void getShopPage(){
         driver.get("https://fakestore.testelka.pl/koszyk/");
+    }
+
+    public WebElement cartElementsDisplayed(){
+        return cartElements;
+    }
+
+    public WebElement cartMessage(){
+        return cartMessage;
+    }
+
+    public WebElement emptyCartMessageDisplayed(){
+        return emptyCartMessage;
     }
 }

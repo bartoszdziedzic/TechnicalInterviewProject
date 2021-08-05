@@ -34,4 +34,44 @@ public class ProductsPage extends BasePage {
     public void getShopPage(){
         driver.get("https://fakestore.testelka.pl/shop/");
     }
+
+    public void openWindsurfingCategory(){
+        windsurfingCategory.click();
+    }
+
+    public void openClimbingCategory(){
+        climbingCategory.click();
+    }
+
+    public void openYogaCategory(){
+        yogaCategory.click();
+    }
+
+    public void openSailingCategory(){
+        sailingCategory.click();
+    }
+
+    public void openViaFerratyTrip(){
+        viaFerratyTrip.click();
+    }
+
+    public void openIslandPeakTrip(){
+        islandPeakTrip.click();
+    }
+
+    public void openGranKoscielcowTrip(){
+        granKoscielcowTrip.click();
+    }
+
+    public void addToCart(){
+        addToCartButton.click();
+    }
+
+    public void goToCart(){
+        goToCart.click();
+    }
+
+    public WebElement addToCartMessageIsDisplayed(){
+        return addToCartMessage;
+    }
 }
