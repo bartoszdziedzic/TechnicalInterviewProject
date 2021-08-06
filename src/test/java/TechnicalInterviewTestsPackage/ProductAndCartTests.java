@@ -27,7 +27,7 @@ class ProductAndCartTests extends TestSetup {
 
     @Test
     void addProductToCartTenTimes(){
-        productsPage.getShopPage();
+        openProduct(productsPage.climbingCategory(), productsPage.granKoscielcow());
     }
 
     @Test
