@@ -26,6 +26,8 @@ public class ProductsPage extends BasePage {
     private WebElement addToCartMessage;
     @FindBy(css = "#site-header-cart")
     private WebElement goToCart;
+    @FindBy(css = ".product_title.entry-title")
+    private WebElement productTitle;
 
     public ProductsPage(WebDriver driver) {
         super(driver);
@@ -63,6 +65,26 @@ public class ProductsPage extends BasePage {
         granKoscielcowTrip.click();
     }
 
+    public WebElement granKoscielcow(){
+        return granKoscielcowTrip;
+    }
+
+    public WebElement islandPeak(){
+        return islandPeakTrip;
+    }
+
+    public WebElement viaFerraty(){
+        return viaFerratyTrip;
+    }
+
+    public WebElement climbingCategory(){
+        return climbingCategory;
+    }
+
+    public void openTrip(WebElement trip){
+        trip.click();
+    }
+
     public void addToCart(){
         addToCartButton.click();
     }
@@ -73,5 +95,13 @@ public class ProductsPage extends BasePage {
 
     public WebElement addToCartMessageIsDisplayed(){
         return addToCartMessage;
+    }
+
+    public String productTitle(){
+        return productTitle.getText();
+    }
+
+    public void openCategory(WebElement category) {
+        category.click();
     }
 }

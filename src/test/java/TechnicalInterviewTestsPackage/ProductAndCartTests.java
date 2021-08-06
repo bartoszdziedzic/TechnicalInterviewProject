@@ -2,6 +2,7 @@ package TechnicalInterviewTestsPackage;
 
 import TechnicalInterviewPagePackage.RegisterAndLoginPage;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
@@ -10,52 +11,41 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ProductAndCartTests extends TestSetup {
 
     @Test
-    void registerUserTest(){
-        registerAndLoginPage.registerUser(user);
-        loginMessageAssertion(user.getEmailAddress());
+    void addProductToCartFromProductView(){
+        addProductToCart(productsPage.climbingCategory(), productsPage.granKoscielcow());
+        assertThat(productsPage.addToCartMessageIsDisplayed().getText())
+                .as("Wrong add to cart message displayed.")
+                .contains('„' + productsPage.productTitle() + '“' + " został dodany do koszyka.");
     }
 
     @Test
-    void registerUserWithoutMailTest(){
-        registerAndLoginPage.registerWithoutMail();
-        errorMessageAssertion("Błąd: Podaj poprawny adres e-mail.");
+    void addAllProductsToCartFromProductView(){
+
     }
 
     @Test
-    void registerUserWithoutPasswordTest(){
-        registerAndLoginPage.registerWithoutPassword(user);
-        errorMessageAssertion("Błąd: Proszę wpisać hasło.");
+    void addProductToCartFromCategoryPage(){
+        productsPage.getShopPage();
+        productsPage.openClimbingCategory();
     }
 
     @Test
-    void loginTest(){
-        registerAndLoginPage.loginUser();
-        loginMessageAssertion(RegisterAndLoginPage.REGISTERED_USER);
+    void addProductToCartTenTimes(){
+        productsPage.getShopPage();
     }
 
     @Test
-    void logoutTest(){
-        registerAndLoginPage.logoutUser();
-        assertThat(registerAndLoginPage.accountWelcomeMessageIsDisplayed().getText())
-                .as("Welcome messsage does not contain 'Delete Account' phrase.")
-                .contains("Delete Account");
-
-        registerAndLoginPage.submitLogout();
-        assertThat(registerAndLoginPage.isUserLoggedOut())
-                .as("Login button is not displayed.")
-                .isTrue();
+    void removeProductFromCart(){
+        productsPage.getShopPage();
     }
 
-    public void errorMessageAssertion(String errorMessage){
-        assertThat(registerAndLoginPage.errorMessagePromptDisplayed().getText())
-                .as("Incorrect error message.")
-                .contains(errorMessage);
-    }
 
-    public void loginMessageAssertion(String message){
-        String username = List.of(message.split("@")).get(0);
-        assertThat(registerAndLoginPage.accountWelcomeMessageIsDisplayed().getText())
-                .as("Incorrect username displayed in welcome message.")
-                .contains(username);
+
+
+    public void addProductToCart(WebElement category, WebElement productName) {
+        productsPage.getShopPage();
+        productsPage.openCategory(category);
+        productsPage.openTrip(productName);
+        productsPage.addToCart();
     }
 }
