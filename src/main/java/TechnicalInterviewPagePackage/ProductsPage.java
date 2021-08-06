@@ -3,6 +3,9 @@ package TechnicalInterviewPagePackage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public class ProductsPage extends BasePage {
 
@@ -21,16 +24,20 @@ public class ProductsPage extends BasePage {
     @FindBy(xpath = "//*[@id=\"main\"]/ul/li[3]/a[1]/h2")
     private WebElement viaFerratyTrip;
     @FindBy(css = "[name=add-to-cart]")
-    private WebElement addToCartButton;
+    private WebElement productAddToCartButton;
     @FindBy(css = ".woocommerce-message")
     private WebElement addToCartMessage;
     @FindBy(css = "#site-header-cart")
     private WebElement goToCart;
     @FindBy(css = ".product_title.entry-title")
     private WebElement productTitle;
+    @FindBy(css = ".add_to_cart_button.ajax_add_to_cart")
+    private List<WebElement> categoryAddToCartButton;
+    @FindBy(css = "[title='Zobacz koszyk']")
+    private WebElement seeCartButtonUnderProduct;
 
-    public ProductsPage(WebDriver driver) {
-        super(driver);
+    public ProductsPage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
     }
 
     public void getShopPage(){
@@ -81,16 +88,36 @@ public class ProductsPage extends BasePage {
         return climbingCategory;
     }
 
+    public WebElement windsurfingCategory(){
+        return windsurfingCategory;
+    }
+
+    public WebElement yogaCategory(){
+        return yogaCategory;
+    }
+
+    public WebElement sailingCategory(){
+        return sailingCategory;
+    }
+
     public void openTrip(WebElement trip){
         trip.click();
     }
 
-    public void addToCart(){
-        addToCartButton.click();
+    public void addToCartFromProductView(){
+        productAddToCartButton.click();
+    }
+
+    public void addToCartFromCategoryView(){
+        categoryAddToCartButton.get(0).click();
     }
 
     public void goToCart(){
         goToCart.click();
+    }
+
+    public WebElement seeCartFromUnderProduct(){
+        return seeCartButtonUnderProduct;
     }
 
     public WebElement addToCartMessageIsDisplayed(){

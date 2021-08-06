@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 @Slf4j
 public class LandingPage extends BasePage {
@@ -12,8 +13,8 @@ public class LandingPage extends BasePage {
     @FindBy(css = "a[class*='dismiss-link']")
     private WebElement dismiss;
 
-    public LandingPage(WebDriver driver) {
-        super(driver);
+    public LandingPage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
     }
 
     public void dismissCookies(){

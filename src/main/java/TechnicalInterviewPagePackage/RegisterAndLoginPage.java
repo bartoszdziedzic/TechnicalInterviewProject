@@ -3,6 +3,7 @@ package TechnicalInterviewPagePackage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class RegisterAndLoginPage extends BasePage {
 
@@ -28,8 +29,8 @@ public class RegisterAndLoginPage extends BasePage {
     @FindBy(css = ".woocommerce-MyAccount-content")
     private WebElement myAccountWelcomeMessage;
 
-    public RegisterAndLoginPage(WebDriver driver) {
-        super(driver);
+    public RegisterAndLoginPage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
     }
 
     public void registerUser(User user){

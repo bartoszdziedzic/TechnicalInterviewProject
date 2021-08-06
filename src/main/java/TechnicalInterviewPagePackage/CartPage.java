@@ -3,6 +3,7 @@ package TechnicalInterviewPagePackage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CartPage extends BasePage {
 
@@ -13,8 +14,8 @@ public class CartPage extends BasePage {
     @FindBy(css = ".cart-empty.woocommerce-info")
     private WebElement emptyCartMessage;
 
-    public CartPage(WebDriver driver) {
-        super(driver);
+    public CartPage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
     }
 
     public void getShopPage(){

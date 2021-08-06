@@ -35,10 +35,10 @@ public abstract class TestSetup {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 5);
 
-        landingPage = new LandingPage(driver);
-        productsPage = new ProductsPage(driver);
-        registerAndLoginPage = new RegisterAndLoginPage(driver);
-        cartPage = new CartPage(driver);
+        landingPage = new LandingPage(driver, wait);
+        productsPage = new ProductsPage(driver, wait);
+        registerAndLoginPage = new RegisterAndLoginPage(driver, wait);
+        cartPage = new CartPage(driver, wait);
 
         driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
