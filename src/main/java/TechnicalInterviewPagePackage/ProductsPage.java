@@ -35,6 +35,8 @@ public class ProductsPage extends BasePage {
     private List<WebElement> categoryAddToCartButton;
     @FindBy(css = "[title='Zobacz koszyk']")
     private WebElement seeCartButtonUnderProduct;
+    @FindBy(css = "input.qty")
+    private WebElement productQuantity;
 
     public ProductsPage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
@@ -114,6 +116,11 @@ public class ProductsPage extends BasePage {
 
     public void goToCart(){
         goToCart.click();
+    }
+
+    public void setQuantity(int amount){
+        productQuantity.clear();
+        productQuantity.sendKeys(String.valueOf(amount));
     }
 
     public WebElement seeCartFromUnderProduct(){

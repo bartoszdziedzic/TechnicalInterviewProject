@@ -13,6 +13,8 @@ public class CartPage extends BasePage {
     private WebElement cartMessage;
     @FindBy(css = ".cart-empty.woocommerce-info")
     private WebElement emptyCartMessage;
+    @FindBy(css = ".product-remove > a")
+    private WebElement removeButton;
 
     public CartPage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
@@ -28,6 +30,10 @@ public class CartPage extends BasePage {
 
     public WebElement cartMessage(){
         return cartMessage;
+    }
+
+    public WebElement removeButton(){
+        return removeButton;
     }
 
     public WebElement emptyCartMessageDisplayed(){

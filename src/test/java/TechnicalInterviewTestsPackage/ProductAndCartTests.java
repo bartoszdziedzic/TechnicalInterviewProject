@@ -10,7 +10,7 @@ class ProductAndCartTests extends TestSetup {
 
     @Test
     void addProductFromProductView(){
-        addProductToCartFromProductView(productsPage.climbingCategory(), productsPage.granKoscielcow());
+        addProductToCartFromProductView(productsPage.climbingCategory(), productsPage.granKoscielcow(), 1);
         assertThat(productsPage.addToCartMessageIsDisplayed().getText())
                 .as("Wrong add to cart message displayed.")
                 .contains('„' + productsPage.productTitle() + '“' + " został dodany do koszyka.");
@@ -19,7 +19,6 @@ class ProductAndCartTests extends TestSetup {
     @Test
     void addProductFromCategoryView(){
         addProductToCartFromCategoryView(productsPage.climbingCategory());
-        wait.until(ExpectedConditions.elementToBeClickable(productsPage.seeCartFromUnderProduct()));
         assertThat(productsPage.seeCartFromUnderProduct().isDisplayed())
                 .as("See Cart button is not displayed under the product.")
                 .isTrue();
@@ -27,18 +26,26 @@ class ProductAndCartTests extends TestSetup {
 
     @Test
     void addProductToCartTenTimes(){
-        openProduct(productsPage.climbingCategory(), productsPage.granKoscielcow());
+        addProductToCartFromProductView(productsPage.climbingCategory(), productsPage.granKoscielcow(), 10);
+        assertThat(productsPage.addToCartMessageIsDisplayed().getText())
+                .as("Wrong add to cart message displayed.")
+                .contains("10 × " + '„' + productsPage.productTitle() + '“' + " zostało dodanych do koszyka.");
     }
 
     @Test
     void removeProductFromCart(){
-        productsPage.getShopPage();
+        addProductToCartFromCategoryView(productsPage.climbingCategory());
+        productsPage.goToCart();
+        assertThat(cartPage.removeButton().isEnabled())
+                .as("Remove button is not displayed.")
+                .isTrue();
     }
 
-    public void addProductToCartFromProductView(WebElement category, WebElement productName) {
+    public void addProductToCartFromProductView(WebElement category, WebElement productName, int amount) {
         productsPage.getShopPage();
         productsPage.openCategory(category);
         productsPage.openTrip(productName);
+        productsPage.setQuantity(amount);
         productsPage.addToCartFromProductView();
     }
 
@@ -46,6 +53,7 @@ class ProductAndCartTests extends TestSetup {
         productsPage.getShopPage();
         productsPage.openCategory(category);
         productsPage.addToCartFromCategoryView();
+        wait.until(ExpectedConditions.elementToBeClickable(productsPage.seeCartFromUnderProduct()));
     }
 
     public void openProduct(WebElement category, WebElement productName){
