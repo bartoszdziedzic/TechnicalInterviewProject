@@ -33,12 +33,26 @@ class ProductAndCartTests extends TestSetup {
     }
 
     @Test
-    void removeProductFromCart(){
+    void isProductAddedToCart(){
         addProductToCartFromCategoryView(productsPage.climbingCategory());
         productsPage.goToCart();
         assertThat(cartPage.removeButton().isEnabled())
                 .as("Remove button is not displayed.")
                 .isTrue();
+    }
+
+    @Test
+    void removeProductFromCart(){
+        addProductToCartFromCategoryView(productsPage.climbingCategory());
+        productsPage.goToCart();
+        cartPage.removeButton().click();
+        wait.until(ExpectedConditions.visibilityOf(cartPage.emptyCartMessageDisplayed()));
+        assertThat(cartPage.emptyCartMessageDisplayed().getText())
+                .as("No info about empty cart was displayed.")
+                .contains("Twój koszyk jest pusty.");
+        assertThat(cartPage.cartMessage().getText())
+                .as("No info about removing product from cart was displayed.")
+                .contains("Usunięto:");
     }
 
     public void addProductToCartFromProductView(WebElement category, WebElement productName, int amount) {
