@@ -3,6 +3,9 @@ package TechnicalInterviewTestsPackage;
 import TechnicalInterviewPagePackage.RegisterAndLoginPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,13 +49,13 @@ class LoginAndRegisterTests extends TestSetup {
                 .isTrue();
     }
 
-    public void errorMessageAssertion(String errorMessage){
+    private void errorMessageAssertion(String errorMessage){
         assertThat(registerAndLoginPage.errorMessagePromptDisplayed().getText())
                 .as("Incorrect error message.")
                 .contains(errorMessage);
     }
 
-    public void loginMessageAssertion(String message){
+    private void loginMessageAssertion(String message){
         String username = List.of(message.split("@")).get(0);
         assertThat(registerAndLoginPage.accountWelcomeMessageIsDisplayed().getText())
                 .as("Incorrect username displayed in welcome message.")

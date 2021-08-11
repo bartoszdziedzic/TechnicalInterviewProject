@@ -1,16 +1,20 @@
 package TechnicalInterviewTestsPackage;
 
+import TechnicalInterviewPagePackage.Category;
+import TechnicalInterviewPagePackage.Trip;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import static TechnicalInterviewPagePackage.Category.CLIMBING;
+import static TechnicalInterviewPagePackage.Trip.GRAN_KOSCIELCOW;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ProductAndCartTests extends TestSetup {
 
     @Test
     void addProductFromProductView(){
-        addProductToCartFromProductView(productsPage.climbingCategory(), productsPage.granKoscielcow(), 1);
+        addProductToCartFromProductView(CLIMBING, GRAN_KOSCIELCOW, 1);
         assertThat(productsPage.addToCartMessageIsDisplayed().getText())
                 .as("Wrong add to cart message displayed.")
                 .contains('„' + productsPage.productTitle() + '“' + " został dodany do koszyka.");
@@ -18,7 +22,7 @@ class ProductAndCartTests extends TestSetup {
 
     @Test
     void addProductFromCategoryView(){
-        addProductToCartFromCategoryView(productsPage.climbingCategory());
+        addProductToCartFromCategoryView(CLIMBING);
         assertThat(productsPage.seeCartFromUnderProduct().isDisplayed())
                 .as("See Cart button is not displayed under the product.")
                 .isTrue();
@@ -26,7 +30,7 @@ class ProductAndCartTests extends TestSetup {
 
     @Test
     void addProductToCartTenTimes(){
-        addProductToCartFromProductView(productsPage.climbingCategory(), productsPage.granKoscielcow(), 10);
+        addProductToCartFromProductView(CLIMBING, GRAN_KOSCIELCOW, 10);
         assertThat(productsPage.addToCartMessageIsDisplayed().getText())
                 .as("Wrong add to cart message displayed.")
                 .contains("10 × " + '„' + productsPage.productTitle() + '“' + " zostało dodanych do koszyka.");
@@ -34,7 +38,7 @@ class ProductAndCartTests extends TestSetup {
 
     @Test
     void isProductAddedToCart(){
-        addProductToCartFromCategoryView(productsPage.climbingCategory());
+        addProductToCartFromCategoryView(CLIMBING);
         productsPage.goToCart();
         assertThat(cartPage.removeButton().isEnabled())
                 .as("Remove button is not displayed.")
@@ -43,7 +47,7 @@ class ProductAndCartTests extends TestSetup {
 
     @Test
     void removeProductFromCart(){
-        addProductToCartFromCategoryView(productsPage.climbingCategory());
+        addProductToCartFromCategoryView(CLIMBING);
         productsPage.goToCart();
         cartPage.removeButton().click();
         wait.until(ExpectedConditions.visibilityOf(cartPage.emptyCartMessageDisplayed()));
@@ -55,7 +59,7 @@ class ProductAndCartTests extends TestSetup {
                 .contains("Usunięto:");
     }
 
-    public void addProductToCartFromProductView(WebElement category, WebElement productName, int amount) {
+    private void addProductToCartFromProductView(Category category, Trip productName, int amount) {
         productsPage.getShopPage();
         productsPage.openCategory(category);
         productsPage.openTrip(productName);
@@ -63,14 +67,14 @@ class ProductAndCartTests extends TestSetup {
         productsPage.addToCartFromProductView();
     }
 
-    public void addProductToCartFromCategoryView(WebElement category) {
+    private void addProductToCartFromCategoryView(Category category) {
         productsPage.getShopPage();
         productsPage.openCategory(category);
         productsPage.addToCartFromCategoryView();
         wait.until(ExpectedConditions.elementToBeClickable(productsPage.seeCartFromUnderProduct()));
     }
 
-    public void openProduct(WebElement category, WebElement productName){
+    private void openProduct(Category category, Trip productName){
         productsPage.getShopPage();
         productsPage.openCategory(category);
         productsPage.openTrip(productName);
