@@ -66,7 +66,7 @@ class ProductAndCartTests extends TestSetup {
         productsPage.setQuantity(amount);
         productsPage.addToCartFromProductView();
     }
-
+//
     private void addProductToCartFromCategoryView(Category category) {
         productsPage.getShopPage();
         productsPage.openCategory(category);
